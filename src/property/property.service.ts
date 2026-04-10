@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Property } from './property.entity';
 import { MongoRepository } from 'typeorm';
@@ -42,9 +42,12 @@ async findOne(id: string){
     return property
 }
 
-async update(id: string, dto: UpdatePropertyDto){
+async update(id: string, updatePropertyDto: UpdatePropertyDto, userId: string, role: string){
     const property = await this.findOne(id)
-    const updatedProperty = Object.assign(property, dto)
+    if(role !== 'ADMIN' && property.ownerId !== userId){
+        throw new ForbiddenException('Access denied')
+    }
+    const updatedProperty = Object.assign(property, updatePropertyDto)
     return this.propertyRepository.save(updatedProperty)
 }
 
@@ -60,17 +63,19 @@ async remove(id: string, user: any): Promise<{message:string}>{
     }
 
     if(user.role !== 'ADMIN' && property.ownerId !== user.userId){
-       throw new BadRequestException("USER can delete only own property.")
+       throw new ForbiddenException('Access denied')
     }
     
     if(property.images && property.images.length > 0){
         property.images.forEach((image) => {
-            const fileName = image.split('/uploads')[1];
-            const filePath = path.join(process.cwd(), 'iploads', fileName)
-
-            if(fs.existsSync(filePath)){
+            const parts = image.split('/uploads')
+            if(parts.length > 1){
+                const fileName = parts[1];
+                const filePath = path.join(process.cwd(), 'uploads', fileName)
+              if(fs.existsSync(filePath)){
                fs.unlinkSync(filePath)
              }
+            }
         })
     }
 
@@ -84,7 +89,7 @@ async remove(id: string, user: any): Promise<{message:string}>{
 }
 
 async search(minPrice?: number, maxPrice?: number){
-    const query: any = {isActive: true}
+    const query: any = {}
     if(minPrice || maxPrice){
         query.price = {}
         if(minPrice) query.price.$gte = minPrice

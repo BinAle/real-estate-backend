@@ -8,6 +8,9 @@ import { AuthModule } from './auth/auth.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { UploadController } from './upload/upload.controller';
+import { FavoritesModule } from './favorites/favorites.module';
+import { ReviewsModule } from './reviews/reviews.module';
+import { UploadModule } from './upload/upload.module';
 
 @Module({
   imports: [
@@ -23,7 +26,7 @@ import { UploadController } from './upload/upload.controller';
       throttlers: [
         {
           ttl: 60,
-          limit: 10,
+          limit: 20,
         },
       ],
     }),
@@ -38,6 +41,9 @@ import { UploadController } from './upload/upload.controller';
     AuthModule,
     UserModule,
     PropertyModule,
+    FavoritesModule,
+    ReviewsModule,
+    UploadModule,
   ],
      // Register controller
      controllers: [UploadController],

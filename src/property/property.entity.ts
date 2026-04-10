@@ -60,4 +60,10 @@ export class Property{
 
     @UpdateDateColumn()
     updatedAt!: Date;
+
+    @Column({ default: 0 })
+    averageRating!: number;
+
+    @Column({ default: 0 })
+    totalReviews!: number;
 }

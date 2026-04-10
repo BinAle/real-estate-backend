@@ -1,4 +1,4 @@
-import { v2 as cloudinary } from "cloudinary";
+/*import { v2 as cloudinary } from "cloudinary";
 const {CloudinaryStorage}  = require("multer-storage-cloudinary");
 
 export const storage = new CloudinaryStorage({
@@ -9,4 +9,4 @@ export const storage = new CloudinaryStorage({
         allowed_formats: ['jpg', 'jpeg', 'png',],
         public_id: (req, file) => Date.now() + "_" + file.originalname,
       }
-})
+})*/

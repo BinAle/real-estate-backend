@@ -39,7 +39,7 @@ async login(loginUserDto: LoginUserDto){
     if(!isMatch){
         throw new UnauthorizedException("Invalid Credentials.")
     }
-    const payload = {sub: user._id.toString(), role: user.role}
+    const payload = {sub: user._id.toString(), email: user.email, role: user.role}
     return{
         access_token: this.jwtService.sign(payload, {expiresIn: '1d'}),
         refresh_token: this.jwtService.sign(payload, {expiresIn: '7d'}),

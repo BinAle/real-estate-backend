@@ -99,11 +99,13 @@ export class PropertyController {
 
   // =========== update
   @Put(':id')
+  @UseGuards(JwtAuthGuard)
   update(
     @Param('id') id: string,
-    @Body() dto: UpdatePropertyDto,
+    @Body() updatePropertyDto: UpdatePropertyDto,
+    @Req() req
   ): Promise<Property> {
-    return this.propertyService.update(id, dto);
+    return this.propertyService.update(id, updatePropertyDto, req.user.userId, req.user.role);
   }
   
     // =========== delete ( Admin Only )

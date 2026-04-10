@@ -37,7 +37,6 @@
     "cloudinary": "^2.9.0",
     "mongodb": "^6.21.0",
     "multer": "^2.1.1",
-    "multer-storage-cloudinary": "^4.0.0",
     "nestjs-pino": "^4.5.0",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
@@ -49,13 +48,13 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "^9.18.0",
-    "@nestjs/cli": "^7.6.0",
-    "@nestjs/schematics": "^7.3.1",
+    "@nestjs/cli": "^11.0.0",
+    "@nestjs/schematics": "^11.0.0",
     "@nestjs/testing": "^11.0.1",
     "@types/bcrypt": "^6.0.0",
     "@types/express": "^5.0.6",
     "@types/jest": "^30.0.0",
-    "@types/multer": "^2.0.0",
+    "@types/multer": "^2.1.0",
     "@types/node": "^22.10.7",
     "@types/passport-jwt": "^4.0.1",
     "@types/supertest": "^6.0.2",
@@ -71,7 +70,7 @@
     "ts-loader": "^9.5.2",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.7.3",
+    "typescript": "^5.3.3",
     "typescript-eslint": "^8.20.0"
   },
   "jest": {
